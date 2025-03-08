@@ -6,20 +6,24 @@ const Quiz = ({ topicId }) => {
   const [loading, setLoading] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [error, setError] = useState(null);
+
+  const fetchQuestions = async () => {
+    try {
+      const response = await axios.get(
+        `https://opentdb.com/api.php?amount=10&category=${topicId}&type=multiple`
+      );
+      setQuestions(response.data.results);
+      setLoading(false);
+      setError(null); // Clear any previous errors
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+      setError("Failed to load questions. Please try again."); // Set the error message
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get(
-          `https://opentdb.com/api.php?amount=10&category=${topicId}&type=multiple`
-        );
-        setQuestions(response.data.results);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
-
     fetchQuestions();
   }, [topicId]);
 
@@ -31,11 +35,24 @@ const Quiz = ({ topicId }) => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
+  if (error) {
+    return (
+      <div className="text-center">
+        <p className="text-red-500">{error}</p>
+        <button
+          onClick={fetchQuestions}
+          className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition mt-4"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   if (loading) {
     return <p className="text-center text-gray-700">Loading questions...</p>;
   }
 
-  // If all questions are answered, show the final score and restart button
   if (currentQuestionIndex >= questions.length) {
     return (
       <div className="text-center">
@@ -51,7 +68,6 @@ const Quiz = ({ topicId }) => {
     );
   }
 
-  // Get the current question
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
