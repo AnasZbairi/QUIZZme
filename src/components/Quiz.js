@@ -24,7 +24,15 @@ const Quiz = ({ topicId }) => {
   if (loading) {
     return <p className="text-center text-gray-700">Loading questions...</p>;
   }
-
+const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const [score, setScore] = useState(0);
+  const handleAnswerSelect = (answer) => {
+  const currentQuestion = questions[currentQuestionIndex];
+  if (answer === currentQuestion.correct_answer) {
+    setScore(score + 1);
+  }
+  setCurrentQuestionIndex(currentQuestionIndex + 1);
+};
   return (
     <div>
       <h2 className="text-xl font-semibold text-gray-800">Quiz Questions</h2>
