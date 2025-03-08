@@ -35,14 +35,18 @@ const Quiz = ({ topicId }) => {
     return <p className="text-center text-gray-700">Loading questions...</p>;
   }
 
-  // If all questions are answered, show the final score
+  // If all questions are answered, show the final score and restart button
   if (currentQuestionIndex >= questions.length) {
     return (
       <div className="text-center">
         <h2 className="text-xl font-semibold text-gray-800">Quiz Finished!</h2>
-        <p className="text-gray-700">
-          Your score: {score} / {questions.length}
-        </p>
+        <p className="text-gray-700">Your score: {score} / {questions.length}</p>
+        <button
+          onClick={() => setCurrentQuestionIndex(0)}
+          className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition mt-4"
+        >
+          Restart Quiz
+        </button>
       </div>
     );
   }
