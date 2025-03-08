@@ -7,6 +7,7 @@ const Quiz = ({ topicId }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [error, setError] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(10); // Timer state
 
   const fetchQuestions = async () => {
     try {
@@ -27,12 +28,25 @@ const Quiz = ({ topicId }) => {
     fetchQuestions();
   }, [topicId]);
 
+  // Timer logic
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer); // Cleanup the timer
+    } else {
+      // Move to the next question when time runs out
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setTimeLeft(10); // Reset timer for the next question
+    }
+  }, [timeLeft, currentQuestionIndex]);
+
   const handleAnswerSelect = (answer) => {
     const currentQuestion = questions[currentQuestionIndex];
     if (answer === currentQuestion.correct_answer) {
       setScore(score + 1);
     }
     setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setTimeLeft(10); // Reset timer when user selects an answer
   };
 
   if (error) {
@@ -59,7 +73,10 @@ const Quiz = ({ topicId }) => {
         <h2 className="text-xl font-semibold text-gray-800">Quiz Finished!</h2>
         <p className="text-gray-700">Your score: {score} / {questions.length}</p>
         <button
-          onClick={() => setCurrentQuestionIndex(0)}
+          onClick={() => {
+            setCurrentQuestionIndex(0);
+            setTimeLeft(10); // Reset the timer
+          }}
           className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition mt-4"
         >
           Restart Quiz
@@ -77,6 +94,7 @@ const Quiz = ({ topicId }) => {
         <p className="font-medium text-gray-800">
           Question {currentQuestionIndex + 1}: {currentQuestion.question}
         </p>
+        <p className="text-sm text-gray-600">Time left: {timeLeft} seconds</p>
         <ul className="mt-2 space-y-2">
           {[...currentQuestion.incorrect_answers, currentQuestion.correct_answer]
             .sort(() => Math.random() - 0.5)
