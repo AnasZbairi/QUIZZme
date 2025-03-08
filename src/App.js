@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Topics from "./Topics";
-import Quiz from "./Quiz";
+import Topics from "./components/Topics"; // Updated import
+import Quiz from "./components/Quiz"; // Updated import
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
