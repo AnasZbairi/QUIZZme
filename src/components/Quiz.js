@@ -15,7 +15,13 @@ const Quiz = ({ topicId }) => {
       const response = await axios.get(
         `https://opentdb.com/api.php?amount=10&category=${topicId}&type=multiple`
       );
-      setQuestions(response.data.results);
+      const questionsWithSortedAnswers = response.data.results.map((question) => ({
+        ...question,
+        sortedAnswers: [...question.incorrect_answers, question.correct_answer].sort(
+          () => Math.random() - 0.5
+        ),
+      }));
+      setQuestions(questionsWithSortedAnswers);
       setLoading(false);
       setError(null); // Clear any previous errors
     } catch (error) {
@@ -101,17 +107,15 @@ const Quiz = ({ topicId }) => {
         </p>
         <p className="text-sm text-gray-600">Time left: {timeLeft} seconds</p>
         <ul className="mt-2 space-y-2">
-          {[...currentQuestion.incorrect_answers, currentQuestion.correct_answer]
-            .sort(() => Math.random() - 0.5)
-            .map((answer, i) => (
-              <li
-                key={i}
-                onClick={() => handleAnswerSelect(answer)}
-                className="bg-white p-2 rounded-lg shadow-sm cursor-pointer hover:bg-blue-100 transition"
-              >
-                {answer}
-              </li>
-            ))}
+          {currentQuestion.sortedAnswers.map((answer, i) => (
+            <li
+              key={i}
+              onClick={() => handleAnswerSelect(answer)}
+              className="bg-white p-2 rounded-lg shadow-sm cursor-pointer hover:bg-blue-100 transition"
+            >
+              {answer}
+            </li>
+          ))}
         </ul>
       </div>
       <p className="text-gray-700">
