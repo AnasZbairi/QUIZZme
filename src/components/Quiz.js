@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 const Quiz = ({ topicId }) => {
@@ -9,7 +9,8 @@ const Quiz = ({ topicId }) => {
   const [error, setError] = useState(null);
   const [timeLeft, setTimeLeft] = useState(10); // Timer state
 
-  const fetchQuestions = async () => {
+  // Memoize fetchQuestions to avoid unnecessary recreations
+  const fetchQuestions = useCallback(async () => {
     try {
       const response = await axios.get(
         `https://opentdb.com/api.php?amount=10&category=${topicId}&type=multiple`
@@ -22,11 +23,11 @@ const Quiz = ({ topicId }) => {
       setError("Failed to load questions. Please try again."); // Set the error message
       setLoading(false);
     }
-  };
+  }, [topicId]); // Add 'topicId' as a dependency
 
   useEffect(() => {
     fetchQuestions();
-  }, [topicId]);
+  }, [fetchQuestions]); // Add 'fetchQuestions' to the dependency array
 
   // Timer logic
   useEffect(() => {
