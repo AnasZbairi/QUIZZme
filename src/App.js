@@ -9,6 +9,7 @@ import QuizHistory from "./components/QuizHistory";
 import Auth from "./components/Auth";
 import CreateQuiz from "./components/CreateQuiz";
 import Header from "./components/Header";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function AppContent() {
             path="/create-quiz"
             element={user ? <CreateQuiz /> : <Navigate to="/auth" />}
           />
+          <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
         </Routes>
       </div>
     </div>
