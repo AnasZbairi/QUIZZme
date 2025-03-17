@@ -1,22 +1,25 @@
 {
   "name": "quizzme-app",
   "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.0.0",
+    "web-vitals": "^2.1.4"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
-  },
   "eslintConfig": {
-    "extends": ["react-app", "react-app/jest"],
-    "rules": {
-      "no-unused-vars": "warn"
-    }
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
