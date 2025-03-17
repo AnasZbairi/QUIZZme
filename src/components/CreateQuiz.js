@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
 const CreateQuiz = () => {
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState([]); // This variable is now used
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState(0);
 
   const handleAddQuestion = () => {
+    // Use the `questions` variable here
     setQuestions((prev) => [
       ...prev,
       { question, answers, correctAnswer },
@@ -56,6 +57,20 @@ const CreateQuiz = () => {
       >
         Add Question
       </button>
+
+      {/* Display the list of questions */}
+      <div className="mt-6">
+        <h3 className="text-xl font-bold mb-2">Added Questions</h3>
+        <ul>
+          {questions.map((q, index) => (
+            <li key={index} className="mb-2">
+              <strong>Question:</strong> {q.question}
+              <br />
+              <strong>Correct Answer:</strong> {q.answers[q.correctAnswer]}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
