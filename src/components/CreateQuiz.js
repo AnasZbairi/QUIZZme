@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const CreateQuiz = () => {
   // eslint-disable-next-line no-unused-vars
-  const [questions, setQuestions] = useState([]); // Disable ESLint warning for this line
+  const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState(0);
