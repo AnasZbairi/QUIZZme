@@ -19,9 +19,9 @@ const Topics = ({ onSelectTopic }) => {
 
   const handleTopicClick = (topicId) => {
     if (onSelectTopic) {
-      onSelectTopic(topicId); // Call the onSelectTopic prop if it exists
+      onSelectTopic(topicId);
     }
-    navigate(`/quiz/${topicId}`); // Navigate to the quiz route
+    navigate(`/quiz/${topicId}`);
   };
 
   return (
