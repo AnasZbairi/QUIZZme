@@ -1,3 +1,15 @@
+import React from 'react';
+import UserProfile from './components/UserProfile';
+
+function App() {
+  return (
+    <div>
+      <UserProfile />
+    </div>
+  );
+}
+
+export default App;
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { QuizProvider } from "./context/QuizContext";
