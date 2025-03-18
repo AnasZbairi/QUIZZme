@@ -49,8 +49,8 @@ function AppContent() {
             path="/create-quiz"
             element={user ? <CreateQuiz /> : <Navigate to="/auth" />}
           />
-          <Route path="/profile" element={<UserProfile />} /> {/* Add UserProfile route */}
-          <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>
