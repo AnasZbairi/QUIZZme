@@ -1,4 +1,4 @@
-import { useContext } from 'react'; // Correct import
+import { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { QuizProvider } from './context/QuizContext';
 import { AuthProvider, AuthContext } from './context/AuthContext';
