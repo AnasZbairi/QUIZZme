@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { ThemeContext } from "../context/ThemeContext";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import { ThemeContext } from '../context/ThemeContext';
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <header className="bg-blue-500 text-white p-4 mb-4">
+    <header className={`${isDarkMode ? 'bg-gray-800' : 'bg-blue-500'} text-white p-4 mb-4`}>
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold">
           QUIZZme
@@ -47,7 +47,7 @@ const Header = () => {
             </li>
             <li>
               <button onClick={toggleTheme} className="hover:underline">
-                {isDarkMode ? "Light Mode" : "Dark Mode"}
+                {isDarkMode ? 'Light Mode' : 'Dark Mode'}
               </button>
             </li>
           </ul>
