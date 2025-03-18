@@ -1,7 +1,9 @@
 import React, { createContext, useState, useContext } from 'react';
 
+// Create the context
 const ThemeContext = createContext();
 
+// Create the provider component
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -16,4 +18,8 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
+// Export the context itself for direct use (if needed)
+export default ThemeContext;
+
+// Create and export a custom hook for easier access
 export const useTheme = () => useContext(ThemeContext);
