@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { QuizProvider } from './context/QuizContext';
 import { AuthProvider, AuthContext } from './context/AuthContext';
-import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext'; // Corrected import
 import Topics from './components/Topics';
 import Quiz from './components/Quiz';
 import QuizHistory from './components/QuizHistory';
