@@ -1,26 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { QuizContext } from "../context/QuizContext";
-import { AuthContext } from "../context/AuthContext";
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { QuizContext } from '../context/QuizContext';
+import { AuthContext } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext'; // Add this import for dark mode
 
 const Quiz = () => {
   const { topicId } = useParams();
   const navigate = useNavigate();
   const { addQuizResult } = useContext(QuizContext);
   const { user } = useContext(AuthContext);
+  const { isDarkMode } = useTheme(); // Get dark mode state
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(10);
 
+  // Redirect to login if user is not logged in
   useEffect(() => {
     if (!user) {
-      navigate("/auth"); // Redirect to login if user is not logged in
+      navigate('/auth');
     }
   }, [user, navigate]);
 
+  // Fetch questions for the selected topic
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -30,13 +34,14 @@ const Quiz = () => {
         setQuestions(response.data.results);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching questions:", error);
+        console.error('Error fetching questions:', error);
       }
     };
 
     fetchQuestions();
   }, [topicId]);
 
+  // Timer for each question
   useEffect(() => {
     if (timeLeft > 0) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
@@ -47,6 +52,7 @@ const Quiz = () => {
     }
   }, [timeLeft, currentQuestionIndex]);
 
+  // Handle answer selection
   const handleAnswerSelect = (answer) => {
     const currentQuestion = questions[currentQuestionIndex];
     if (answer === currentQuestion.correct_answer) {
@@ -56,50 +62,4 @@ const Quiz = () => {
     setTimeLeft(10);
   };
 
-  useEffect(() => {
-    if (currentQuestionIndex >= questions.length && questions.length > 0) {
-      addQuizResult(`Topic ${topicId}`, score, questions.length);
-      navigate("/history");
-    }
-  }, [currentQuestionIndex, questions, score, topicId, addQuizResult, navigate]);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  const currentQuestion = questions[currentQuestionIndex];
-
-  return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold text-gray-800">Quiz Questions</h2>
-      <div className="my-4 p-4 bg-gray-50 rounded-lg">
-        <p className="font-medium text-gray-800">
-          Question {currentQuestionIndex + 1}: {currentQuestion.question}
-        </p>
-        <p className="text-sm text-gray-600">Time left: {timeLeft} seconds</p>
-        <ul className="mt-2 space-y-2">
-          {[...currentQuestion.incorrect_answers, currentQuestion.correct_answer]
-            .sort(() => Math.random() - 0.5)
-            .map((answer, i) => (
-              <li
-                key={i}
-                onClick={() => handleAnswerSelect(answer)}
-                className="bg-white p-2 rounded-lg shadow-sm cursor-pointer hover:bg-blue-100 transition"
-              >
-                {answer}
-              </li>
-            ))}
-        </ul>
-      </div>
-      <p className="text-gray-700">
-        Score: {score} / {questions.length}
-      </p>
-    </div>
-  );
-};
-
-export default Quiz;
+  // Save quiz result and navigate to history when quiz
