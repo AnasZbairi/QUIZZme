@@ -3,6 +3,8 @@ import QuizStart from './components/QuizStart';
 import QuestionCard from './components/QuestionCard';
 import ScoreSummary from './components/ScoreSummary';
 import QuizHistory from './components/QuizHistory';
+import Header from './components/Header'; // Import Header
+import Footer from './components/Footer'; // Import Footer
 
 const App = () => {
   const [quizStarted, setQuizStarted] = useState(false);
@@ -43,28 +45,32 @@ const App = () => {
   };
 
   return (
-    <div>
-      {!quizStarted && quizQuestions.length === 0 ? (
-        <QuizStart onStart={handleStart} />
-      ) : quizStarted ? (
-        <QuestionCard
-          question={quizQuestions[currentQuestionIndex].question}
-          options={[
-            ...quizQuestions[currentQuestionIndex].incorrect_answers,
-            quizQuestions[currentQuestionIndex].correct_answer,
-          ].sort(() => Math.random() - 0.5)}
-          onAnswer={handleAnswer}
-        />
-      ) : (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100 space-y-6">
-          <ScoreSummary
-            score={score}
-            totalQuestions={quizQuestions.length}
-            onRestart={handleRestart}
+    <div className="flex flex-col min-h-screen">
+      <Header /> {/* Add Header */}
+      <main className="flex-grow container mx-auto p-4">
+        {!quizStarted && quizQuestions.length === 0 ? (
+          <QuizStart onStart={handleStart} />
+        ) : quizStarted ? (
+          <QuestionCard
+            question={quizQuestions[currentQuestionIndex].question}
+            options={[
+              ...quizQuestions[currentQuestionIndex].incorrect_answers,
+              quizQuestions[currentQuestionIndex].correct_answer,
+            ].sort(() => Math.random() - 0.5)}
+            onAnswer={handleAnswer}
           />
-          <QuizHistory history={quizHistory} />
-        </div>
-      )}
+        ) : (
+          <div className="flex flex-col items-center justify-center space-y-6">
+            <ScoreSummary
+              score={score}
+              totalQuestions={quizQuestions.length}
+              onRestart={handleRestart}
+            />
+            <QuizHistory history={quizHistory} />
+          </div>
+        )}
+      </main>
+      <Footer /> {/* Add Footer */}
     </div>
   );
 };
