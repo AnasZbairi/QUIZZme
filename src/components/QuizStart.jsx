@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchCategories, fetchQuizQuestions } from '../utils/api';
+import QuizIcon from '../assets/quiz-icon.svg';
 
 const QuizStart = ({ onStart }) => {
   const [categories, setCategories] = useState([]);
@@ -22,6 +23,7 @@ const QuizStart = ({ onStart }) => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <img src={QuizIcon} alt="Quiz Icon" className="w-16 h-16 mb-4" /> {/* Use the icon */}
       <h1 className="text-3xl font-bold mb-6">QUIZZme</h1>
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <label className="block mb-4">
