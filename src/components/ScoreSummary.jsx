@@ -1,10 +1,16 @@
 import React from 'react';
 
-const { FacebookShareButton, TwitterShareButton } = window.ReactShare;
-
 const ScoreSummary = ({ score, totalQuestions, onRestart }) => {
   const shareUrl = window.location.href;
   const title = `I scored ${score}/${totalQuestions} on QUIZZme!`;
+
+  // Check if ReactShare is available
+  if (!window.ReactShare) {
+    console.error('ReactShare is not available. Check the CDN script.');
+    return null;
+  }
+
+  const { FacebookShareButton, TwitterShareButton } = window.ReactShare;
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md w-96 text-center">
