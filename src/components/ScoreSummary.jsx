@@ -1,5 +1,6 @@
 import React from 'react';
-import { FacebookShareButton, TwitterShareButton } from 'react-share';
+
+const { FacebookShareButton, TwitterShareButton } = window.ReactShare;
 
 const ScoreSummary = ({ score, totalQuestions, onRestart }) => {
   const shareUrl = window.location.href;
