@@ -34,6 +34,7 @@ const CreateQuiz = ({ onSave }) => {
     const quizzes = JSON.parse(localStorage.getItem('quizzes') || []);
     quizzes.push({ quizName, questions });
     localStorage.setItem('quizzes', JSON.stringify(quizzes));
+    alert('Quiz saved successfully!');
     onSave();
   };
 
