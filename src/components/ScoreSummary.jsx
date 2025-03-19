@@ -1,4 +1,5 @@
-import { FacebookShareButton, TwitterShareButton, WhatsAppShareButton } from 'react-share';
+import React from 'react';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
 
 const ScoreSummary = ({ score, totalQuestions, onRestart }) => {
   const shareUrl = window.location.href;
@@ -12,10 +13,14 @@ const ScoreSummary = ({ score, totalQuestions, onRestart }) => {
       </p>
       <div className="flex justify-center space-x-4 mb-4">
         <FacebookShareButton url={shareUrl} quote={title}>
-          Share on Facebook
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+            Share on Facebook
+          </button>
         </FacebookShareButton>
         <TwitterShareButton url={shareUrl} title={title}>
-          Share on Twitter
+          <button className="bg-blue-400 text-white px-4 py-2 rounded-md hover:bg-blue-500">
+            Share on Twitter
+          </button>
         </TwitterShareButton>
       </div>
       <button
