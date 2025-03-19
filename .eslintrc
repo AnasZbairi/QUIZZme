@@ -1,6 +1,0 @@
-{
-  "extends": ["react-app", "react-app/jest"],
-  "rules": {
-    "no-unused-vars": "warn" // Treat unused variables as warnings, not errors
-  }
-}
