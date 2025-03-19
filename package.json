@@ -1,6 +1,6 @@
 {
   "name": "quizzme",
-  "type": "module",
+  "type": "module", // Add this line
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -14,7 +14,6 @@
     "axios": "^1.6.2"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.1.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
