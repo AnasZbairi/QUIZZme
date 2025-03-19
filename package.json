@@ -1,9 +1,8 @@
 {
   "name": "quizzme",
-  "type": "module",
+  "type": "module", // Keep only one "type": "module"
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,6 +14,7 @@
     "axios": "^1.6.2"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.1.0", // Add this line
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
