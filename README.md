@@ -1,28 +1,19 @@
-# Quiz Application
+# QUIZZme
 
-A responsive quiz application that fetches questions from the Open Trivia Database API, allowing users to test their knowledge on various topics.
-
-![Quiz App Screenshot](https://i.imgur.com/JQ9q3kD.png)
+QUIZZme is a fun and interactive quiz app built with React and Tailwind CSS. Users can select a topic, answer questions, and see their final score.
 
 ## Features
-
-- 🎯 10 questions per quiz from diverse categories
-- ⚡ Three difficulty levels (Easy, Medium, Hard)
-- 📊 Real-time scoring and feedback
-- 🎨 Clean, responsive UI with Tailwind CSS
-- 🔄 Question shuffling to prevent pattern recognition
-- 📱 Mobile-friendly design
+- Select from multiple quiz topics.
+- Answer questions one by one.
+- View your final score at the end of the quiz.
+- Responsive design for all screen sizes.
 
 ## Technologies Used
-
-- React.js
-- React Router
+- React
 - Tailwind CSS
 - Open Trivia Database API
-- Vercel/Netlify (for deployment)
 
-## Installation
-
+## How to Run Locally
 1. Clone the repository:
-```bash
-git clone https://github.com/AnasZbairi/QUIZZme
+   ```bash
+   git clone https://github.com/your-username/quizzme.git
