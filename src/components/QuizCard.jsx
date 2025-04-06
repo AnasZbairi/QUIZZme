@@ -1,49 +1,76 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-const QuizCard = ({ category }) => {
-  // Map category IDs to icons or images
-  const getCategoryIcon = (id) => {
-    const icons = {
-      '9': '🎓',   // General Knowledge
-      '10': '📚',  // Books
-      '11': '🎬',  // Film
-      '12': '🎵',  // Music
-      '14': '📺',  // Television
-      '15': '🎮',  // Video Games
-      '17': '🔬',  // Science
-      '18': '💻',  // Computers
-      '19': '🧮',  // Mathematics
-      '20': '🏛️',  // Mythology
-      '21': '⚽',  // Sports
-      '22': '🌍',  // Geography
-      '23': '🏰',  // History
-      '24': '🏛️',  // Politics
-      '25': '🎨',  // Art
-      '26': '🌟',  // Celebrities
-      '27': '🐾',  // Animals
-      '28': '🚗',  // Vehicles
-    };
-    return icons[id] || '❓';
+const QuizCard = ({ category, stats, onClick }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+
+  const categoryIcons = {
+    '9': '🧠', '10': '📚', '11': '🎬', '12': '🎵',
+    '14': '📺', '15': '🎮', '17': '🔬', '18': '💻',
+    '19': '🧮', '20': '🏛️', '21': '⚽', '22': '🌍',
+    '23': '⏳', '24': '🏛️', '25': '🎨', '26': '🌟',
+    '27': '🐾', '28': '🚗'
   };
 
+  const attempts = stats?.attempts || 0;
+  const lastAttempt = stats?.lastAttempt 
+    ? new Date(stats.lastAttempt).toLocaleDateString() 
+    : 'Never attempted';
+
   return (
-    <Link 
-      to={`/quiz?category=${category.id}`}
-      className="block p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+    <div
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+      className={`relative h-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 ${
+        isHovered ? 'shadow-md' : ''
+      } ${
+        isPressed ? 'scale-95' : 'scale-100'
+      }`}
     >
-      <div className="flex items-center space-x-4">
-        <span className="text-4xl">{getCategoryIcon(category.id)}</span>
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800">{category.name}</h3>
-          <p className="text-gray-600">Test your knowledge</p>
+      <div className="p-5 pb-3">
+        <div className="flex items-start space-x-4">
+          <div className={`p-3 rounded-lg transition-colors ${
+            attempts > 0 
+              ? 'bg-green-100 text-green-600' 
+              : 'bg-blue-100 text-blue-600'
+          }`}>
+            <span className="text-4xl">
+              {categoryIcons[category.id] || '❓'}
+            </span>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-gray-800">{category.name}</h3>
+            <p className="text-gray-600 mt-1 text-sm">{category.description}</p>
+          </div>
         </div>
       </div>
-      <div className="mt-4 flex justify-between text-sm text-gray-500">
-        <span>10 questions</span>
-        <span>Multiple choice</span>
+
+      <div className="px-5 py-3 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-medium px-2 py-1 bg-gray-200 text-gray-700 rounded-full">
+            {attempts} attempt{attempts !== 1 ? 's' : ''}
+          </span>
+          <span className="text-xs text-gray-500">Last: {lastAttempt}</span>
+        </div>
+        <div className="flex items-center">
+          <div className="h-2 w-16 bg-gray-200 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-blue-500" 
+              style={{ width: `${Math.min(100, category.popularity)}%` }}
+            ></div>
+          </div>
+          <span className="text-xs text-gray-500 ml-2">{category.popularity}%</span>
+        </div>
       </div>
-    </Link>
+
+      {isHovered && (
+        <div className="absolute inset-0 bg-black bg-opacity-5 pointer-events-none"></div>
+      )}
+    </div>
   );
 };
 
-export default QuizCard;QuizCard.jsx
+export default QuizCard;
