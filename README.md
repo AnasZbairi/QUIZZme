@@ -25,4 +25,4 @@ A responsive quiz application that fetches questions from the Open Trivia Databa
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/AnasZbairi/quiz-app.git
+git clone https://github.com/AnasZbairi/QUIZZme
