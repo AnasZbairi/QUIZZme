@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Topics from "./Topics";
+import Quiz from "./Quiz";
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -17,7 +18,7 @@ function App() {
         {!selectedTopic ? (
           <Topics onSelectTopic={handleTopicSelect} />
         ) : (
-          <p className="text-center text-gray-700">Quiz for Topic ID: {selectedTopic}</p>
+          <Quiz topicId={selectedTopic} />
         )}
       </main>
     </div>
