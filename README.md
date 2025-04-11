@@ -16,4 +16,4 @@ QUIZZme is a fun and interactive quiz app built with React and Tailwind CSS. Use
 ## How to Run Locally
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/quizzme.git
+   git clone https://github.com/AnasZbairi/QUIZZme
