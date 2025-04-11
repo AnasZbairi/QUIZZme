@@ -13,7 +13,11 @@ QUIZZme is a fun and interactive quiz app built with React and Tailwind CSS. Use
 - Tailwind CSS
 - Open Trivia Database API
 
-## How to Run Locally
-1. Clone the repository:
+## How to Run Locally 
+Clone the repository:
    ```bash
    git clone https://github.com/AnasZbairi/QUIZZme
+
+## How to have access to the app
+click on the link below 
+https://anas-quizzme.netlify.app/
